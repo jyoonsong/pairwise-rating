@@ -10,17 +10,22 @@ import "./callbacks.js";
 // rounds and stages (with get/set methods), that will be able to use later in
 // the game.
 Empirica.gameInit(game => {
-  game.players.forEach((player, i) => {
-    player.set("avatar", `/avatars/jdenticon/${player._id}`);
-    player.set("score", 0);
-  });
 
-  _.times(10, i => {
+  game.set("score", 0);
+  
+  // game.players.forEach((player, i) => {
+  //   player.set("avatar", `/avatars/jdenticon/${player._id}`);
+  //   player.set("score", 0);
+  // });
+
+  _.times(50, i => {
+    // calculate the two stories with the fewest ratings (if tie, random)
+
     const round = game.addRound();
     round.addStage({
       name: "response",
-      displayName: "Response",
-      durationInSeconds: 120
+      displayName: "Choose a better love story",
+      durationInSeconds: 1200
     });
   });
 });
