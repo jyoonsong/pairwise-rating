@@ -1,13 +1,23 @@
 import Empirica from "meteor/empirica:core";
+import Stories from './stories.js';
 
 // onGameStart is triggered opnce per game before the game starts, and before
 // the first onRoundStart. It receives the game and list of all the players in
 // the game.
-Empirica.onGameStart(game => {});
+Empirica.onGameStart(game => {
+  game.players.forEach(player => {
+    player.set("score", 0)
+  })
+});
 
 // onRoundStart is triggered before each round starts, and before onStageStart.
 // It receives the same options as onGameStart, and the round that is starting.
-Empirica.onRoundStart((game, round) => {});
+Empirica.onRoundStart((game, round) => {
+  sorted = Stories.find({}, {sort: {allocated: 1}}).fetch();
+  round.set("stories", sorted.slice(0, 2));
+
+  // console.log(sorted);
+});
 
 // onStageStart is triggered before each stage starts.
 // It receives the same options as onRoundStart, and the stage that is starting.
@@ -21,10 +31,17 @@ Empirica.onStageEnd((game, round, stage) => {});
 // It receives the same options as onGameEnd, and the round that just ended.
 Empirica.onRoundEnd((game, round) => {
   game.players.forEach(player => {
-    const value = player.round.get("value") || 0;
-    const prevScore = player.get("score") || 0;
-    player.set("score", prevScore + value);
+    const prevScore = player.get("score");
+    player.set("score", prevScore + 1);
   });
+
+  round.get("stories").forEach(function(s) {
+    allocatedStory = Stories.find({ _id: s._id }).fetch();
+
+    // console.log(allocatedStory)
+
+    Stories.update(allocatedStory[0]._id, { $inc: { allocated: 1 } });
+  })
 });
 
 // onGameEnd is triggered when the game ends.
