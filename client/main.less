@@ -114,18 +114,33 @@ body {
     z-index: 10;
     position: relative;
 
+    .full {
+      width: 100%;
+      display: flex;
+    }
+
+    .half {
+      width: calc(50% - .5rem);
+      margin-right: .5rem;
+
+      &.story {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 1rem 1.35rem;
+      }
+    }
+
     .task-stimulus {
-      width: 70%;
+      width: 80%;
     }
 
     .task-response {
-      margin: 3rem 0 0;
+      margin: 1rem 0 0;
       width: 100%;
       display: flex;
 
       .task-response-form {
-        width: 70%;
-        padding-right: 2rem;
+        width: 80%;
 
         .selected-draft {
           background-color: #efefef;
@@ -139,15 +154,12 @@ body {
           margin-right: 1rem;
         }
 
-        .story {
+        textarea {
           white-space: pre-wrap;
           overflow-wrap: break-word;
           width: 100%;
-          min-height: 260px;
-          display: none;
-          &.active {
-            display: block;
-          }
+          min-height: 60px;
+          padding: 1rem;
         }
 
         button[type="submit"] {
@@ -312,4 +324,43 @@ button {
 
 .red {
   color: red;
+}
+
+.text-center {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-bottom: .5rem;
+}
+
+input[type="radio"].btn {
+  display: none;
+  &+ label {
+    border: 2px solid #c58000;
+    color: #c58000;
+    display: flex;
+    border-radius: 10px;
+    padding: 1rem;
+    justify-content: center;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    transition: all .5s ease;
+    cursor: pointer;
+    &:before {
+      content: "Click to choose this story"
+    }
+  }
+  &:checked + label {
+    background-color: #c58000;
+    color: #fff;
+    &:before {
+      content: "You chose this story!"
+    }
+  }
+}
+
+.inactive {
+  opacity: .5;
+  pointer-events: none;
+  cursor: not-allowed;
 }
