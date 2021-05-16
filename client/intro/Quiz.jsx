@@ -30,7 +30,7 @@ export default class Quiz extends React.Component {
           <form onSubmit={this.handleSubmit}>
             <p>
               <label htmlFor="sum">
-                Your task is to evaluate the XXXX stories. What is the correct 4-letter word for XXXX?</label>
+                Your task is to guess which XXXX story the majority of other raters would prefer. What is the correct 4-letter word for XXXX?</label>
               <input
                 type="text"
                 dir="auto"
