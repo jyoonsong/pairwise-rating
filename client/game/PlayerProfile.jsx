@@ -24,11 +24,7 @@ export default class PlayerProfile extends React.Component {
         <span>{score} rounds completed</span><br/><br/>
 
         <b>Expected reward</b>:<br/>
-        {score < 10 ? 
-          <span>$0 <br/><small>*You need to complete at least 10 rounds</small></span>
-        :
-          <span>$2 ~ ${(score * 0.2).toFixed(1)}</span>
-        }
+        <span>${(score * 0.05).toFixed(2)} ~ ${(score * 0.5).toFixed(2)}<br/><small>*You need to complete at least 10 rounds</small></span>
         <br/>
       </div>
 

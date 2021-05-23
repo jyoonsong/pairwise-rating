@@ -25,7 +25,7 @@ Empirica.gameInit(game => {
     round.addStage({
       name: "response",
       displayName: "Choose a better love story",
-      durationInSeconds: 1200
+      durationInSeconds: 86400
     });
   });
 });

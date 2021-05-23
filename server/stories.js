@@ -1,6 +1,10 @@
 import { Mongo } from 'meteor/mongo';
+import loveStories from './stories.json'
 
 Stories = new Mongo.Collection('stories');
+
+// delete all documents
+// Stories.remove({});
 
 // const loveStories = [
 //     {

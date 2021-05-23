@@ -5,8 +5,6 @@ class timer extends React.Component {
   render() {
     const { remainingSeconds, stage } = this.props;
 
-    console.log(this.props)
-
     const classes = ["timer"];
     if (stage.durationInSeconds - remainingSeconds <= 10) {
       classes.push("lessThan5");
@@ -18,7 +16,7 @@ class timer extends React.Component {
       <div className={classes.join(" ")}>
         <h4>Time spent</h4>
         <span className="seconds">{stage.durationInSeconds - remainingSeconds}</span><br/>
-        <small>*You should spend at least 20 seconds in each stage.</small>
+        <small>You can spend as many time as you want to.</small>
       </div>
     );
   }
