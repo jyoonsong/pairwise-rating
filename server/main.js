@@ -18,13 +18,13 @@ Empirica.gameInit(game => {
   //   player.set("score", 0);
   // });
 
-  _.times(50, i => {
+  _.times(10, i => {
     // calculate the two stories with the fewest ratings (if tie, random)
 
     const round = game.addRound();
     round.addStage({
       name: "response",
-      displayName: "Choose a better love story",
+      displayName: "Which love story would the majority prefer?",
       durationInSeconds: 86400
     });
   });

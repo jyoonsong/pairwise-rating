@@ -13,10 +13,21 @@ Empirica.onGameStart(game => {
 // onRoundStart is triggered before each round starts, and before onStageStart.
 // It receives the same options as onGameStart, and the round that is starting.
 Empirica.onRoundStart((game, round) => {
-  sorted = Stories.find({}, {sort: {allocated: 1}}).fetch();
-  round.set("stories", sorted.slice(0, 2));
+  const sorted = Stories.find({}, {sort: {allocated: 1}}).fetch();
+  let story1 = sorted[0];
+  let story2 = sorted[1];
 
-  // console.log(sorted);
+  for (let i = 0; i < sorted.length; i++) {
+    if (!story1.compared.includes(sorted[i]._id)) {
+      story2 = sorted[i];
+      break;
+    }
+  }
+
+  round.set("stories", [story1, story2]);
+
+  console.log([story1, story2]);
+  console.log(sorted.length)
 });
 
 // onStageStart is triggered before each stage starts.
@@ -35,13 +46,19 @@ Empirica.onRoundEnd((game, round) => {
     player.set("score", prevScore + 1);
   });
 
-  round.get("stories").forEach(function(s) {
-    allocatedStory = Stories.find({ _id: s._id }).fetch();
+  const allocated = round.get("stories");
 
-    // console.log(allocatedStory)
+  const story1 = Stories.find({ _id: allocated[0]._id }).fetch()[0];
+  const story2 = Stories.find({ _id: allocated[1]._id }).fetch()[0];
 
-    Stories.update(allocatedStory[0]._id, { $inc: { allocated: 1 } });
-  })
+  // increase allocation count
+  Stories.update(story1._id, { $inc: { allocated: 1 } });
+  Stories.update(story2._id, { $inc: { allocated: 1 } });
+
+  // add each other to compared array
+  Stories.update(story1._id, { $addToSet: { compared: story2._id } });
+  Stories.update(story2._id, { $addToSet: { compared: story1._id } });
+
 });
 
 // onGameEnd is triggered when the game ends.
