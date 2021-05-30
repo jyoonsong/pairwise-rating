@@ -16,6 +16,10 @@ Empirica.onRoundStart((game, round) => {
   const sorted = Stories.find({}, {sort: {allocated: 1}}).fetch();
   let story1 = sorted[0];
   let story2 = sorted[1];
+  
+  for (let i = 0; i < sorted.length; i++) {
+    console.log(sorted[i]._id + ": " + sorted[i].allocated);
+  }
 
   for (let i = 0; i < sorted.length; i++) {
     if (!story1.compared.includes(sorted[i]._id)) {
@@ -26,8 +30,8 @@ Empirica.onRoundStart((game, round) => {
 
   round.set("stories", [story1, story2]);
 
-  console.log([story1, story2]);
-  console.log(sorted.length)
+  console.log("==== allocated " + story1._id + ", " + story2._id);
+
 });
 
 // onStageStart is triggered before each stage starts.
